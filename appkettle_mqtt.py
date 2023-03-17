@@ -458,6 +458,7 @@ def main_loop(host_port, imei, mqtt_broker, auth):
 
     if not mqtt_broker is None:
         mqttc = mqtt.Client()
+        mqttc.auth_set(auth = {‘username’:”username”, ‘password’:”password”}   )
         mqttc.on_connect = cb_mqtt_on_connect
         mqttc.on_message = cb_mqtt_on_message
         mqttc.user_data_set(kettle)  # passes to each callback $kettle as $userdata
