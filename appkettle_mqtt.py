@@ -440,13 +440,14 @@ def to_json(myjson):
     return json_object
 
 
-def main_loop(host_port, imei, mqtt_broker):
+def main_loop(host_port, imei, mqtt_broker, auth):
     """ Main event loop called from __main__
 
     Args:
         host_port: tuple with the kettle host and port
         imei: kettle IMEI
         mqtt_broker: tuple with mqtt broker and port
+        auth: tuple with username and password
     """
 
     kettle_socket = KettleSocket(imei=imei)
@@ -565,9 +566,14 @@ def argparser():
         nargs=2,
         metavar=("host", "port"),
     )
-
+    parser.add_argument(
+        "--auth",
+        help="MQTT broker username and password (e.g. --auth username password)",
+        nargs=2,
+        metavar=("username", "password"),
+    )
     args = parser.parse_args()
-    main_loop((args.host, args.port), args.imei, args.mqtt)
+    main_loop((args.host, args.port), args.imei, args.mqtt args.auth)
 
 
 if __name__ == "__main__":
